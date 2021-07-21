@@ -53,6 +53,7 @@ const Form = (props) => {
     const valueToUse = type === "checkbox" ? checked : value;
     validate(name, value);
     setForm({ ...form, [name]: valueToUse });
+    console.log(form);
   };
 
   const formSubmit = (e) => {

@@ -19,6 +19,7 @@ function App() {
         setUsers([...users, res.data]);
       })
       .catch((err) => console.log(err));
+    console.log(users);
   };
 
   return (
@@ -26,11 +27,9 @@ function App() {
       <h1>User Onboarding</h1>
 
       <Form onSubmitUser={onSubmitUser} />
-      {
-        (users.map = (user) => {
-          <User user={user} />;
-        })
-      }
+      {users.map((user) => {
+        return <User user={user} />;
+      })}
     </div>
   );
 }
