@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { reach } from "yup";
 import schema from "./YupValidation";
 const FormStyle = styled.form`
-  width: 50%;
+  width: 70%;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
@@ -44,7 +44,7 @@ const Form = (props) => {
       .validate(value)
       .then(() => setFormErrors({ ...formErrors, [name]: "" }))
       .catch((err) => {
-        console.log(err);
+        setFormErrors({ ...formErrors, [name]: err.errors[0] });
       });
   };
 
@@ -58,6 +58,7 @@ const Form = (props) => {
   const formSubmit = (e) => {
     e.preventDefault();
     props.onSubmitUser(form);
+    setForm({ username: "", password: "", email: "", service: false });
   };
 
   useEffect(() => {
@@ -109,12 +110,6 @@ const Form = (props) => {
       {formErrors.service.length > 0 && <p>{formErrors.service}</p>}
 
       <button disabled={disabled}>Submit</button>
-      {/* <div>
-        <div>{formErrors.username}</div>
-        <div>{formErrors.email}</div>
-        <div>{formErrors.service}</div>
-        <div>{formErrors.password}</div>
-      </div> */}
     </FormStyle>
   );
 };
