@@ -3,11 +3,12 @@ import styled from "styled-components";
 import { reach } from "yup";
 import schema from "./YupValidation";
 const FormStyle = styled.form`
-  width: 70%;
+  width: 80%;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-
+  background: lightblue;
+  padding: 30px;
   & label {
     margin: 10px;
     margin-right: auto;
@@ -22,6 +23,9 @@ const FormStyle = styled.form`
   & button {
     width: 30%;
     margin: 0 auto;
+  }
+  & .alert {
+    color: red;
   }
 `;
 
@@ -51,7 +55,7 @@ const Form = (props) => {
   const onChange = (evt) => {
     const { name, type, value, checked } = evt.target;
     const valueToUse = type === "checkbox" ? checked : value;
-    validate(name, value);
+    validate(name, valueToUse);
     setForm({ ...form, [name]: valueToUse });
     console.log(form);
   };
@@ -76,7 +80,9 @@ const Form = (props) => {
           value={form.username}
         />
       </label>
-      {formErrors.username.length > 0 && <p>{formErrors.username}</p>}
+      {formErrors.username.length > 0 && (
+        <p className="alert">{formErrors.username}</p>
+      )}
       <label>
         Email
         <input
@@ -86,7 +92,9 @@ const Form = (props) => {
           value={form.email}
         />
       </label>
-      {formErrors.email.length > 0 && <p>{formErrors.email}</p>}
+      {formErrors.email.length > 0 && (
+        <p className="alert">{formErrors.email}</p>
+      )}
 
       <label>
         Password
@@ -97,7 +105,9 @@ const Form = (props) => {
           value={form.password}
         />
       </label>
-      {formErrors.password.length > 0 && <p>{formErrors.password}</p>}
+      {formErrors.password.length > 0 && (
+        <p className="alert">{formErrors.password}</p>
+      )}
 
       <label>
         Terms of Service
@@ -108,7 +118,9 @@ const Form = (props) => {
           checked={form.service}
         />
       </label>
-      {formErrors.service.length > 0 && <p>{formErrors.service}</p>}
+      {formErrors.service.length > 0 && (
+        <p className="alert">{formErrors.service}</p>
+      )}
 
       <button disabled={disabled}>Submit</button>
     </FormStyle>
