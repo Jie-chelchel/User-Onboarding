@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-
+import { reach } from "yup";
+import schema from "./YupValidation";
 const FormStyle = styled.form`
   width: 50%;
   display: flex;
@@ -24,10 +25,6 @@ const FormStyle = styled.form`
   }
 `;
 
-const onChange = (evt) => {
-  const { name, type, value, checked } = evt.target;
-};
-
 const Form = () => {
   const [form, setForm] = useState({
     username: "",
@@ -35,13 +32,30 @@ const Form = () => {
     email: "",
     service: false,
   });
+  const [formErrors, setFormErrors] = useState({
+    username: "",
+    password: "",
+    email: "",
+    service: false,
+  });
+  const [disabled, setDisabled] = useState(true);
+  const validate = (name, value) => {
+    reach(schema, name)
+      .validate(value)
+      .then(() => setFormErrors({ ...formErrors, [name]: "" }))
+      .catch((err) => setFormErrors({ ...formErrors, [name]: err.errors[0] }));
+  };
 
   const onChange = (evt) => {
-    console.log(evt.target.value);
     const { name, type, value, checked } = evt.target;
     const valueToUse = type === "checkbox" ? checked : value;
+    validate(name, value);
     setForm({ ...form, [name]: valueToUse });
   };
+
+  useEffect(() => {
+    schema.isValid(form).then((valid) => setDisabled(!valid), [form]);
+  });
   return (
     <FormStyle>
       <label>
@@ -80,7 +94,7 @@ const Form = () => {
           checked={form.service}
         />
       </label>
-      <button>Submit</button>
+      <button disabled={disabled}>Submit</button>
     </FormStyle>
   );
 };
