@@ -91,7 +91,7 @@ const Form = (props) => {
       <label>
         Password
         <input
-          type="text"
+          type="password"
           name="password"
           onChange={onChange}
           value={form.password}
