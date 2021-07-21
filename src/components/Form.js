@@ -25,7 +25,7 @@ const FormStyle = styled.form`
   }
 `;
 
-const Form = () => {
+const Form = (props) => {
   const [form, setForm] = useState({
     username: "",
     password: "",
@@ -43,7 +43,9 @@ const Form = () => {
     reach(schema, name)
       .validate(value)
       .then(() => setFormErrors({ ...formErrors, [name]: "" }))
-      .catch((err) => setFormErrors({ ...formErrors, [name]: err.errors[0] }));
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const onChange = (evt) => {
@@ -53,11 +55,16 @@ const Form = () => {
     setForm({ ...form, [name]: valueToUse });
   };
 
+  const formSubmit = (e) => {
+    e.preventDefault();
+    props.onSubmitUser(form);
+  };
+
   useEffect(() => {
     schema.isValid(form).then((valid) => setDisabled(!valid), [form]);
   });
   return (
-    <FormStyle>
+    <FormStyle onSubmit={formSubmit}>
       <label>
         Name
         <input
@@ -67,6 +74,7 @@ const Form = () => {
           value={form.username}
         />
       </label>
+      {formErrors.username.length > 0 && <p>{formErrors.username}</p>}
       <label>
         Email
         <input
@@ -76,6 +84,8 @@ const Form = () => {
           value={form.email}
         />
       </label>
+      {formErrors.email.length > 0 && <p>{formErrors.email}</p>}
+
       <label>
         Password
         <input
@@ -85,6 +95,8 @@ const Form = () => {
           value={form.password}
         />
       </label>
+      {formErrors.password.length > 0 && <p>{formErrors.password}</p>}
+
       <label>
         Terms of Service
         <input
@@ -94,7 +106,15 @@ const Form = () => {
           checked={form.service}
         />
       </label>
+      {formErrors.service.length > 0 && <p>{formErrors.service}</p>}
+
       <button disabled={disabled}>Submit</button>
+      {/* <div>
+        <div>{formErrors.username}</div>
+        <div>{formErrors.email}</div>
+        <div>{formErrors.service}</div>
+        <div>{formErrors.password}</div>
+      </div> */}
     </FormStyle>
   );
 };
