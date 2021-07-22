@@ -30,12 +30,7 @@ const FormStyle = styled.form`
 `;
 
 const Form = (props) => {
-  const [form, setForm] = useState({
-    username: "",
-    password: "",
-    email: "",
-    service: false,
-  });
+  const { form, setForm } = props;
   const [formErrors, setFormErrors] = useState({
     username: "",
     password: "",
@@ -55,6 +50,7 @@ const Form = (props) => {
   const onChange = (evt) => {
     const { name, type, value, checked } = evt.target;
     const valueToUse = type === "checkbox" ? checked : value;
+    console.log(evt);
     validate(name, valueToUse);
     setForm({ ...form, [name]: valueToUse });
     console.log(form);

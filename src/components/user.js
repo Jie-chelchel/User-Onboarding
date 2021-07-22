@@ -15,16 +15,20 @@ const UserStyle = styled.div`
     font-weight: bold;
   }
 `;
+
 const User = (props) => {
   return (
     <UserStyle>
       <p>
         <span>Username:</span> {props.user.username}
       </p>
+
       <p>
         <span>Email: </span>
         {props.user.email}
       </p>
+      <button onClick={props.editInfo}>Edit</button>
+      <button onClick={props.deleteInfo}>Delete</button>
     </UserStyle>
   );
 };

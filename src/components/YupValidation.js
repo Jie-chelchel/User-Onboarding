@@ -13,6 +13,7 @@ const YupValidation = yup.object().shape({
     .string()
     .required("Must enter your password")
     .min(8, "must be at least 8 characters long"),
+    
   service: yup.boolean().oneOf([true], "You must accept Terms and Services"),
 });
 
