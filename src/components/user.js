@@ -27,8 +27,12 @@ const User = (props) => {
         <span>Email: </span>
         {props.user.email}
       </p>
-      <button onClick={props.editInfo}>Edit</button>
-      <button onClick={props.deleteInfo}>Delete</button>
+      <button data-cy="editBtn" onClick={props.editInfo}>
+        Edit
+      </button>
+      <button data-cy="deleteBtn" onClick={props.deleteInfo}>
+        Delete
+      </button>
     </UserStyle>
   );
 };

@@ -118,7 +118,9 @@ const Form = (props) => {
         <p className="alert">{formErrors.service}</p>
       )}
 
-      <button disabled={disabled}>Submit</button>
+      <button id="submitBtn" disabled={disabled}>
+        Submit
+      </button>
     </FormStyle>
   );
 };

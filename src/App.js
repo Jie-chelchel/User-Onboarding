@@ -4,7 +4,15 @@ import { useState } from "react";
 import axios from "axios";
 import User from "./components/User";
 function App() {
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState([
+    {
+      username: "JieChelchel",
+      password: "wefwfwfewfefwe",
+      email: "zhangjeic@gmail.com",
+      id: "232",
+      service: true,
+    },
+  ]);
   const [form, setForm] = useState({
     username: "",
     password: "",
