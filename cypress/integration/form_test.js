@@ -101,7 +101,7 @@ describe("User Onboarding", () => {
     tosCheckbox().check();
     submitBtn().should("not.be.disabled");
     submitBtn().click();
-    cy.contains("sss").siblings("button:nth-of-type(1)").click();
+    cy.contains("sss").siblings("button:nth-of-type(2)").click();
     cy.contains("sss").should("not.exist");
   });
 });
